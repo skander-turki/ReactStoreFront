@@ -95,7 +95,7 @@ function Product (props){
     if (produit.likes > 4){
         return( <ProductFrameBest>
             <ProductImageWrapperBest>
-                <ProductImageBest src="image/water_bottle.jpg" />
+                <ProductImageBest src={`http://localhost:3008/uploads/${produit.image}`} />
             </ProductImageWrapperBest>
             <ProductInfoWrapperBest><Link to={`/DetailProd/${produit._id}`}>{produit.title}</Link></ProductInfoWrapperBest>
             <ProductInfoWrapperBest>{produit.price}</ProductInfoWrapperBest>
@@ -110,7 +110,7 @@ function Product (props){
         <ProductFrame>
 
             <ProductImageWrapper>
-                <ProductImage src="image/water_bottle.jpg" />
+                <ProductImage src={`http://localhost:3008/uploads/${produit.image}`} />
             </ProductImageWrapper>
             <ProductInfoWrapper> <Link to={`/DetailProd/${produit._id}`}>{produit.title}</Link> </ProductInfoWrapper>
             <ProductInfoWrapper>{produit.price} </ProductInfoWrapper>
