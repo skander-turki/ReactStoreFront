@@ -8,6 +8,7 @@ import styled from "styled-components";
 //import Products from "./Components/Products";
 
 import Navbar from "./Components/Navbar";
+import ProductUpdate from "./Components/ProductUpdate";
 const Home = React.lazy(() => import("./Components/Home"));
 const Products = React.lazy(() => import("./Components/Products"));
 const ProductDetail = React.lazy(() => import("./Components/ProductDetail"));
@@ -32,6 +33,7 @@ function App() {
                         <Route  path="/Products" element={<Products/> }/>
                         <Route  path="/DetailProd/:id" element={ <ProductDetail/>}/>
                         <Route  path="/addproduct" element={ <Addproduct/>}/>
+                        <Route  path="/updateproduit/:id" element={ <ProductUpdate/>}/>
                         <Route  path="*" element={ <NotFound/>}/>
                     </Routes>
           </Suspense>

@@ -21,11 +21,6 @@ const Button = styled.button`
 
 function Products() {
     const[products, err]= useApi("products");
-
-    //const produits = data.map((produit)=>{
-
-       // return <Product key={produit.id} Produit={produit}  />
-   // });
    return(
     <div>
         <ProductsWrapper>

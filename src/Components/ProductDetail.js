@@ -50,7 +50,7 @@ background: transparent !important;
 padding: 0.25rem;
 width: 60%;
 height: 100%;
-`;;
+`;
 const Footer = styled.footer`
   background: transparent;
   grid-area: footer;
@@ -90,7 +90,7 @@ const[products, err]= useApi("products");
         {
             return <ContentBox>
                 <Content1>
-                    <img src="image/water_bottle.jpg" alt="aa"/>
+                    <img src={`http://localhost:3008/uploads/${produit.image}`} alt="aa"/>
                 </Content1>
                 <Content2>
                         <H1> {produit.title}</H1>

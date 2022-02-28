@@ -2,11 +2,15 @@ import styled from "styled-components";
 import React, { useState} from "react";
 import  useApi  from "../hooks/useApi";
 import { queryApi } from "../utils/queryApi";
-
+import { useNavigate  } from "react-router-dom";
 
 
 
 function Addproduct(){
+  
+    
+    
+
     const [product , setproduit] = useState({
         title:"",
         description:"",
@@ -40,14 +44,11 @@ function Addproduct(){
 
 return <form onSubmit={(e) => {handleSubmit(e)}}>
 
-<div >
+<div className="container" >
   <h1>ADD NEW PRODUCT</h1>  
-  <label >title :</label>  
-  <input type="text" name="TITLE" required onChange={(e) => {handletitleChange(e)}} />
-  
-  <label >description :</label> 
-  <input type="text" name="DESCRIPTION"  required onChange={(e) => {handle_description_Change(e)}}/>
-  <input type="text" name="PRICE" required onChange={(e) => {handlepriceChange(e)}}/>
+  <input type="text" name="TITLE" placeholder="Title" required onChange={(e) => {handletitleChange(e)}} /> 
+  <input type="text" name="DESCRIPTION" placeholder="Description" required onChange={(e) => {handle_description_Change(e)}}/>
+  <input type="text" name="PRICE" placeholder="Price" required onChange={(e) => {handlepriceChange(e)}}/>
   <input type="file" name="IMAGE" required onChange={(e) => {handleImageChange(e)}}/>
 
 

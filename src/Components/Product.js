@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React, { useState} from "react";
 import {Link} from "react-router-dom";
+import { queryApi } from "../utils/queryApi";
 
 const ProductFrame = styled.div`
   border-radius: 25px;
@@ -78,16 +79,25 @@ const UButton = styled(Button)`
 color: blue;
 border-color: blue;
 `;
-
+const DButton = styled(Button)`
+color: red;
+border-color: red;
+`;
 
 
 function Product (props){
         const [like,setState] = useState(0);
         const [produit , setProduit] = useState(props.Produit)
 
-   const addLikes = () => {
-        setState( like +1)
-    }
+const addLikes = () => {
+        setState( like +1)}
+
+const deleteitem = (id) => {
+  alert('A product with Title :"' + produit.title +
+  'is deleted');
+  queryApi(`product/${produit._id}`,"DELETE");
+
+}
 
 
 
@@ -101,7 +111,8 @@ function Product (props){
             <ProductInfoWrapperBest>{produit.price}</ProductInfoWrapperBest>
             <ProductInfoWrapperBest>Likes: {produit.likes} </ProductInfoWrapperBest>
             <Button onClick={addLikes}>Like</Button>
-            <UButton onClick={addLikes}>Update</UButton>
+            <UButton><Link  to={`/updateproduit/${produit._id}`}>Update</Link></UButton>
+            <DButton  onClick={deleteitem()}><Link  to='/Products'>Delete</Link></DButton>
         </ProductFrameBest>)
     }
     else
@@ -112,11 +123,13 @@ function Product (props){
             <ProductImageWrapper>
                 <ProductImage src={`http://localhost:3008/uploads/${produit.image}`} />
             </ProductImageWrapper>
-            <ProductInfoWrapper> <Link to={`/DetailProd/${produit._id}`}>{produit.title}</Link> </ProductInfoWrapper>
+            <ProductInfoWrapper> <Link  to={`/DetailProd/${produit._id}`}>{produit.title}</Link> </ProductInfoWrapper>
             <ProductInfoWrapper>{produit.price} </ProductInfoWrapper>
             <ProductInfoWrapper>Likes: {produit.likes} </ProductInfoWrapper>
             <Button onClick={addLikes}>Like</Button>
-            <UButton onClick={addLikes}>Update</UButton>
+            <UButton><Link  to={`/updateproduit/${produit._id}`}>Update</Link></UButton>
+            <DButton  onClick={addLikes}><Link  to='/Products'>Delete</Link></DButton>
+            
         </ProductFrame>
     );
 

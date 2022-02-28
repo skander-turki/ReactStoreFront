@@ -29,6 +29,7 @@ export async function queryApi(
                     ...config,
                     headers: {"Content-Type": "application/json"},
                     data: body,
+                    
                 };
             if (["POST", "PUT", "PATCH"].includes(method.toUpperCase())) {
                 if (transformBody) {
