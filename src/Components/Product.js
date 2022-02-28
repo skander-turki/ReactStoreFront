@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React, { useState} from "react";
 import {Link} from "react-router-dom";
 import { queryApi } from "../utils/queryApi";
+import axios from "axios";
 
 const ProductFrame = styled.div`
   border-radius: 25px;
@@ -85,25 +86,24 @@ border-color: red;
 `;
 
 
-function Product (props){
-        const [like,setState] = useState(0);
-        const [produit , setProduit] = useState(props.Produit)
+        function Product (props){
+                const [like,setState] = useState(0);
+                const [produit , setProduit] = useState(props.Produit)
+                //deleteitem.bind(this, playlist.p)
 
-const addLikes = () => {
-        setState( like +1)}
 
-const deleteitem = (id) => {
-  alert('A product with Title :"' + produit.title +
-  'is deleted');
-  queryApi(`product/${produit._id}`,"DELETE");
+        const addLikes = () => {
+                console.log("add")
+                setState( like +1)
+              }
 
-}
+
 
 
 
 
     if (produit.likes > 4){
-        return( <ProductFrameBest>
+        return( <ProductFrameBest key={produit._id}>
             <ProductImageWrapperBest>
                 <ProductImageBest src={`http://localhost:3008/uploads/${produit.image}`} />
             </ProductImageWrapperBest>
@@ -112,13 +112,13 @@ const deleteitem = (id) => {
             <ProductInfoWrapperBest>Likes: {produit.likes} </ProductInfoWrapperBest>
             <Button onClick={addLikes}>Like</Button>
             <UButton><Link  to={`/updateproduit/${produit._id}`}>Update</Link></UButton>
-            <DButton  onClick={deleteitem()}><Link  to='/Products'>Delete</Link></DButton>
+            <DButton  onClick={()=> queryApi(`product/${produit._id}`,{},"DELETE")}><Link  to='/'>Delete</Link></DButton>
         </ProductFrameBest>)
     }
     else
     return (
 
-        <ProductFrame>
+        <ProductFrame key={produit._id}>
 
             <ProductImageWrapper>
                 <ProductImage src={`http://localhost:3008/uploads/${produit.image}`} />
@@ -128,7 +128,8 @@ const deleteitem = (id) => {
             <ProductInfoWrapper>Likes: {produit.likes} </ProductInfoWrapper>
             <Button onClick={addLikes}>Like</Button>
             <UButton><Link  to={`/updateproduit/${produit._id}`}>Update</Link></UButton>
-            <DButton  onClick={addLikes}><Link  to='/Products'>Delete</Link></DButton>
+            <DButton  onClick={()=> {queryApi(`product/${produit._id}`,{},"DELETE");
+            console.log("delete");}}><Link  to='/'>Delete</Link></DButton>
             
         </ProductFrame>
     );
