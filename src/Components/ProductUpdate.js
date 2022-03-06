@@ -4,29 +4,54 @@ import  useApi  from "../hooks/useApi";
 import { queryApi } from "../utils/queryApi";
 import {Link, useParams  } from "react-router-dom";
 
-const ContentBox = styled.div`
-  display: flex;
-  gap: 0.25rem;
-  padding: 0.25rem;
-  align-items: center;
-  grid-area: content;
-  justify-content: center;
-  @media (max-width: 550px) {
-    flex-direction: column;
-  }
-`;
-const Content1 = styled.div`
-  background: transparent !important;
-  padding: 0.25rem;
-  width: 40%;
-  height: 100%;
-`;
-const Content2 = styled.div`
-background: transparent !important;
-padding: 0.25rem;
-width: 60%;
+const Wrapper = styled.div`
 height: 100%;
+display: flex;
+flex-direction: column;
 `;
+const Title = styled.h2`
+text-transform: uppercase;
+color: black;
+`;
+const FormGroup = styled.div`
+margin: 10px 0;
+display: flex;
+flex-direction: column;
+`;
+const Form = styled.form`
+text-transform: uppercase;
+color: black;
+display: flex;
+flex-direction: column;
+width: 33%;
+align-self: center;
+`;
+const FormField = styled.input`
+color: black;
+padding: 15px;
+outline: 0;
+border-width: 0 0 2px;
+border-color: #ebebeb;
+::placeholder {
+
+text-transform: uppercase;
+font-family: "Kiona";
+font-size: large;
+letter-spacing: 0.1rem;
+}
+`;
+const FormButton = styled.button`
+background: #7b1bf7;
+text-transform: uppercase;
+color: white;
+border-radius: 25px;
+padding: 15px;
+border: 0;
+font-size: large;
+margin: 10px 0;
+font: 200 larger Kiona;
+`;
+
 function ProductUpdate(){
   const {id} = useParams();
   const[pp, errr]= useApi(`product/${id}`)
@@ -74,25 +99,27 @@ const handleImageChange= (e)=> {
   
   
   return (
-    <ContentBox>
-    <form onSubmit={(e) => {handleSubmit(e)}}>
-      <h1>UPDATE PRODUCT</h1> 
-      <Content1>
+    <Wrapper className="fade">
+    <Form onSubmit={(e) => {handleSubmit(e)}}>
+      <Title>UPDATE PRODUCT</Title> 
       <img src={`http://localhost:3008/uploads/${product.image}`} alt="aa"/>
-      </Content1>
-      <Content2>
-      <label >Title :</label> 
-      <input type="text" name="TITLE" value= {product.title} required onChange={(e) => {handletitleChange(e)}} /> 
-      <label >Description :</label> 
-      <input type="text" name="DESCRIPTION" value={product.description} required onChange={(e) => {handle_description_Change(e)}}/>
+      <FormGroup>
+        <FormField type="text" name="TITLE" value= {product.title} required onChange={(e) => {handletitleChange(e)}}></FormField>
+      </FormGroup>
+      <FormGroup>
+        <FormField type="text" name="DESCRIPTION" value={product.description} required onChange={(e) => {handle_description_Change(e)}} ></FormField>
+      </FormGroup>
       <label >Price :</label> 
-      <input type="text" name="PRICE" value={product.price} required onChange={(e) => {handlepriceChange(e)}}/>
+      <FormGroup>
+        <FormField type="number" name="PRICE" value={product.price} required onChange={(e) => {handlepriceChange(e)}} ></FormField>
+      </FormGroup>
       <label >Image :</label> 
-      <input type="file" name="IMAGE" required onChange={(e) => {handleImageChange(e)}}/>
-      <input type="submit" value="Update" />
-      </Content2>
-    </form>
-    </ContentBox>
+      <FormGroup>
+        <FormField type="file" name="IMAGE" required onChange={(e) => {handleImageChange(e)}}></FormField>
+      </FormGroup>
+      <FormButton>Save</FormButton>
+    </Form>
+    </Wrapper>
   );
   
 

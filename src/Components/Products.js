@@ -3,7 +3,7 @@ import Product from "./Product";
 import styled from "styled-components";
 import  useApi  from "../hooks/useApi";
 import {Link} from "react-router-dom";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 const ProductsWrapper = styled.div `
   text-align: center;
@@ -66,12 +66,23 @@ function Products() {
     const [text, setText] = React.useState("");
     const [search, setSearch] = React.useState("");
     const handleSearch = (event) => {setSearch(text);};
-    const filteredProducts = products?.filter((product) => {return search ?
-      product.title.toLowerCase().includes(search.toLowerCase()):products;
-      });
+    const filterd = useMemo(() => {
+        if(!search) return products;
+          return products?.filter((product) => {
+          console.log("Filter function is running ...");
+      return product.title.toLowerCase().includes(search.toLowerCase());
+          })
+    },[search,products]
+     );
+    const filteredProducts = products?.filter((product) => {
+      console.log(search);
+      return product.title.toLowerCase().includes(search.toLowerCase());
+      },[search]
+      );
+      
    return(
     <div>
-        
+          
           <FormGroup>
           <FormField
             type="text"
@@ -84,7 +95,7 @@ function Products() {
 <FormButton onClick={handleSearch}>Search</FormButton>
 
         <ProductsWrapper>
-            {filteredProducts && filteredProducts?.map((produit,index) =>(<Product key={index} Produit={produit}  />))}
+            {filterd && filterd.map((produit,index) =>(<Product key={index} Produit={produit}  />))}
             
         </ProductsWrapper>
         <Button>
